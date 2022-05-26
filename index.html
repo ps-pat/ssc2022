@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="dist/reset.css">
         <link rel="stylesheet" href="dist/reveal.css">
         <link rel="stylesheet" href="dist/theme/mytheme.css">
-
     </head>
     <body>
         <div class="reveal">
@@ -21,6 +20,20 @@
                         (<a href="https://statqam.uqam.ca/">STATQAM</a> &mdash; <a href="https://uqam.ca/">UQAM</a>)</h2>
                     <h3>New Statistical Methods in Genetic Studies</h3>
                     <h3>June 2<sup>nd</sup>, 2022</h3>
+                </section>
+                <section>
+                    <section class="title-slide">
+                        <h1>Theme of the next vertical slides</h1>
+                        <h2>Why not have a subtitle too?</h2>
+                    </section>
+                    <section>
+                        <h1>Title of the slide</h1>
+                        Some content in the form of an ordered list:
+                        <ol>
+                            <li>First very important point</li>
+                            <li>Second less important point</li>
+                        <ol>
+                    </section>
                 </section>
                 <section>
                     <h1>Code</h1>
@@ -69,6 +82,7 @@ end
         <script src="dist/reveal.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
+        <script src="dist/perso.js"></script>
         <script>
          // More info about initialization & config:
          // - https://revealjs.com/initialization/
@@ -102,6 +116,8 @@ end
              autoAnimate: false,
 
              transition: "slide",
+
+             backgroundTransition: 'zoom',
 
              katex: {
                  // local: "node_modules/katex"

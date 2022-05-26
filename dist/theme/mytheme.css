@@ -363,8 +363,8 @@
   text-align: left;
 }
 
-/* Cover page */
-.cover h2 {
+/* Cover slide. */
+.cover h2, .title-slide h2 {
   font-size: 0.75em;
   margin-left: 1em;
 }
@@ -372,6 +372,11 @@
 .cover h3 {
   font-size: 0.5em;
   margin-left: 4em;
+}
+
+/* Title slides. */
+.reveal .title-slide > * {
+  color: #eee;
 }
 
 /* Logo */
@@ -424,16 +429,19 @@ a:hover {
 }
 
 /* Lists */
-ul {
+ul, ol {
   padding-left: 1em;
+}
+
+ul li::marker, ol li::marker {
+  color: #8fbcbb;
 }
 
 ul li::marker {
   content: "#'  ";
-  color: #8fbcbb;
 }
 
-ul li:after {
+ul li:after, ol li:after {
   content: ";";
   color: #ebcb8b;
 }
