@@ -23,57 +23,46 @@
                 </section>
                 <section>
                     <section class="title-slide">
-                        <h1>Theme of the next vertical slides</h1>
-                        <h2>Why not have a subtitle too?</h2>
+                        <h1>Epistasis &amp; PRS</h1>
                     </section>
-                    <section>
-                        <h1>Title of the slide</h1>
-                        Some content in the form of an ordered list:
-                        <ol>
-                            <li>First very important point</li>
-                            <li>Second less important point</li>
-                        <ol>
+                    <section data-markdown>
+                        <textarea data-template>
+# Definition
+- "Weighted sum of the effects of a number of SNPs on a given quantitative
+  trait"<span class="reference">1</span>
+- Weights "based on the effect sizes of the SNPs estimated from a
+  GWAS"<span class="reference">1</span>
+- Originaly developped assuming **additive** effects<span class="reference">2</span>
+---
+# In practice
+- PRS $\Leftrightarrow$ **linear combination** of counts of risk-increasing alleles
+
+A PRS computed on $m$ alleles has the following form:
+
+$$
+\textcolor{#e65100}{\overbrace{\hat s}^{\text{score}}} = \sum\_{k = 1}^m
+  \textcolor{#4d7e65}{\underbrace{x_k}\_{\mathrlap{k-\text{allele count}}}}
+  \textcolor{#9558b2}{\overbrace{\hat{\beta}_k}^{\mathclap{\text{weight of allele }k}}}
+$$
+---
+# Non additivity?
+- Dominant, recessive, heterodominant, etc.
+- Important for at least some
+  phenotypes<span class="reference">3</span><sup>,</sup><span class="reference">4</span><sup>,</sup><span class="reference">5</span>
+
+Example:<span class="reference">4</span> additive + dominant model:
+
+$$
+\hat s = \sum\_{k = 1}^m x_k \hat{\beta}_k +
+\textcolor{#4d7e65}{\underbrace{d_k}\_{\mathclap{1 \text{ iff heterozygous at } k}}}
+\textcolor{#9558b2}{\overbrace{\hat{\gamma}_k}^{\mathclap{\text{dominance weight of allele }k}}}
+$$
+---
+# Interaction ?
+- Same strategy, but not doable in practice <br> ($\mathcal O(2^m)$ terms)
+- Necessary to resort to feature selection<span class="reference">6</span><sup>,</sup><span class="reference">7</span>
+                        </textarea>
                     </section>
-                </section>
-                <section>
-                    <h1>Code</h1>
-                    <p>Are you ready for some awesome <code class="julia">content = "code"</code>?</p>
-                    <pre class="julia"><code data-trim>
-test = 41 + 1
-function ret42(x::Int)
-    ret = 42 - x
-    ret + x
-end
-                    </code></pre>
-                </section>
-                <section>
-                    Slide 2<br>
-                    <a href="https://www.perdu.com">This is a link</a>
-                </section>
-                <section>
-                    <h1>Title of the slide</h1>
-                    <p>Sample unordered list:</p>
-                    <ul>
-                        <li>First item</li>
-                        <li>Second item</li>
-                    </ul>
-                </section>
-                <section>
-                    <p>This integral is not as easy as \( 2 + \frac 4 2 = 4 \) &#x1F614;</p>
-                    $$\begin{equation*}
-                    \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
-                    \end{equation*}$$
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-## Slide 1
-A paragraph with some text and a [link](http://hakim.se).
----
-## Slide 2
-A reference<span class="reference">1</span>
----
-## Slide 3
-                    </textarea>
                 </section>
 
                 <section id="references">
@@ -83,6 +72,12 @@ A reference<span class="reference">1</span>
                     <section>
                         <ol>
                             <li>Croucha, D. J. M., &#38; Bodmer, W. F. (2020). Polygenic inheritance, GWAS, polygenic risk scores, and the search for functional variants. <i>Proceedings of the National Academy of Sciences of the United States of America</i>, <i>117</i>(32), 18924–18933. <a href="https://doi.org/10.1073/pnas.2005634117">https://doi.org/10.1073/pnas.2005634117</a></li>
+                            <li>Meuwissen, T. H. E., Hayes, B. J., &#38; Goddard, M. E. (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. <i>Genetics</i>, <i>157</i>(4), 1819–1829. <a href="https://doi.org/10.1093/GENETICS/157.4.1819">https://doi.org/10.1093/GENETICS/157.4.1819</a></li>
+                            <li>Guindo-Martínez, M., Amela, R., Bonàs-Guarch, S., Puiggròs, M., Salvoro, C., Miguel-Escalada, I., Carey, C. E., Cole, J. B., Rüeger, S., Atkinson, E., Leong, A., Sanchez, F., Ramon-Cortes, C., Ejarque, J., Palmer, D. S., Kurki, M., Aragam, K., Florez, J. C., Badia, R. M., … Torrents, D. (2021). The impact of non-additive genetic associations on age-related complex diseases. <i>Nature Communications 2021 12:1</i>, <i>12</i>(1), 1–14. <a href="https://doi.org/10.1038/s41467-021-21952-4">https://doi.org/10.1038/s41467-021-21952-4</a></li>
+                            <li>Pozarickij, A., Williams, C., &#38; Guggenheim, J. A. (2020). Non-additive (dominance) effects of genetic variants associated with refractive error and myopia. <i>Molecular Genetics and Genomics</i>, <i>295</i>(4), 843. <a href="https://doi.org/10.1007/S00438-020-01666-W">https://doi.org/10.1007/S00438-020-01666-W</a></li>
+                            <li><i>Non Additive Genetic Effects Portal - Home</i>. (n.d.). Retrieved May 25, 2022, from <a href="https://nage.hugeamp.org/">https://nage.hugeamp.org/</a></li>
+                            <li>Massi M.C., Franco N.R., Ieva F., Manzoni A., Paganoni A.M., Zunino P. HighOrder Interaction Learning via Targeted Pattern Search. <i>MOX Report 59/2020</i>, 2020. Retrieved May 25, 2022, from <a href="https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf">https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf</a></li>
+                            <li>Franco, N. R., Massi, M. C., Ieva, F., Manzoni, A., Paganoni, A. M., Zunino, P., Veldeman, L., Ost, P., Fonteyne, V., Talbot, C. J., Rattay, T., Webb, A., Johnson, K., Lambrecht, M., Haustermans, K., de Meerleer, G., de Ruysscher, D., Vanneste, B., van Limbergen, E., … Rancati, T. (2021). Development of a method for generating SNP interaction-aware polygenic risk scores for radiotherapy toxicity. <i>Radiotherapy and Oncology</i>, <i>159</i>, 241–248. <a href="https://doi.org/10.1016/J.RADONC.2021.03.024/ATTACHMENT/293F7F34-0C6E-4108-9BBA-46AFE49D1CC2/MMC1.DOCX">https://doi.org/10.1016/J.RADONC.2021.03.024/ATTACHMENT/293F7F34-0C6E-4108-9BBA-46AFE49D1CC2/MMC1.DOCX</a></li>
                         </ol>
                     </section>
                 </section>
