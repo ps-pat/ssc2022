@@ -7,5 +7,13 @@ out/
 .svn
 log/*.log
 tmp/**
-node_modules/
+node_modules/*
 .sass-cache
+
+## Katex.
+!node_modules/katex/
+node_modules/katex/*
+!node_modules/katex/dist/
+
+## Menu.
+!node_modules/reveal.js-menu/
