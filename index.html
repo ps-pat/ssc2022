@@ -23,7 +23,7 @@
                 </section>
                 <section>
                     <section class="title-slide">
-                        <h1>Epistasis &amp; PRS</h1>
+                        <h1>PRS &amp; Epistasis</h1>
                     </section>
                     <section data-markdown>
                         <textarea data-template>
@@ -37,38 +37,56 @@
 # In practice
 - PRS $\Leftrightarrow$ **linear combination** of counts of risk-increasing alleles
 
-<div class="fragment fade-up">
 A PRS computed on $m$ alleles has the following form:
-
 $$
 \textcolor{#e65100}{\overbrace{\hat s}^{\text{score}}} = \sum\_{k = 1}^m
 \textcolor{#4d7e65}{\underbrace{x_k}\_{\mathrlap{k-\text{allele count}}}}
 \textcolor{#9558b2}{\overbrace{\hat{\beta}_k}^{\mathclap{\text{weight of allele }k}}}
 $$
-</div>
----
+<!-- .element: class="fragment fade-up" -->
+                        </textarea>
+                    </section>
+                    <section>
+                        <h1>Assumptions</h1>
+                        <ul>
+                            <li>Weight estimation is based on linear regression models</li>
+                        </ul>
+
+                        <div class="fragment fade-up">
+                            <p> Assumes (among other things):
+                                <ul>
+                                    <li>Additivity</li>
+                                    <li class="fragment highlight-red grow">Linearity</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </section>
+                    <section data-markdown>
+                        <textarea data-template>
 # Non-additivity?
 - Dominant, recessive, heterodominant, etc.
 - Important for at least some
   phenotypes<span class="reference">3</span><sup>,</sup><span class="reference">4</span><sup>,</sup><span class="reference">5</span>
 
-<div class="fragment fade-up">
 Example:<span class="reference">4</span> additive + dominant model:
-
 $$
 \hat s = \sum\_{k = 1}^m x_k \hat{\beta}_k +
 \textcolor{#4d7e65}{\underbrace{d_k}\_{\mathclap{1 \text{ iff heterozygous at } k}}}
 \textcolor{#9558b2}{\overbrace{\hat{\gamma}_k}^{\mathclap{\text{dominance weight of allele }k}}}
 $$
-</div>
+                            <!-- .element: class="fragment fade-up" -->
 ---
-# Interaction?
-- Same strategy, but intractable in practice <br> ($\mathcal O(2^m)$ terms)
-- Necessary to resort to feature selection<span class="reference">6</span><sup>,</sup><span class="reference">7</span>
-- Since features are selected based on association with the response, arguably begs the question
+# Epistasis?
+- Gene-Gene interaction
+- Major difficulty in the analysis of GWAS data<span class="reference">6</span>
+- Epistasis-aware models are possible, but intractable ($\mathcal O(2^m)$ terms)
+                            <!--
+                               - Since features are selected based on association with the response, arguably begs the question -->
 ---
-# Non-Linearity?
-
+# Epistasis-aware models
+- Some phenotyopes are simple.
+- Some forms of epistasis might be reflected in additive effects<span class="reference">7</span>
+- Interaction learning<span class="reference">8</span><sup>,</sup><span class="reference">9</span>
                         </textarea>
                     </section>
                 </section>
@@ -87,9 +105,20 @@ $$
                         </ol>
                     </section>
                     <section>
-                        <ol>
+                        <ol start="6">
+                            <li>Furlong, L. I. (2013). Human diseases through the lens of network biology. <i>Trends in Genetics</i>, <i>29</i>(3), 150–159. <a href="https://doi.org/10.1016/J.TIG.2012.11.004">https://doi.org/10.1016/J.TIG.2012.11.004</a></li>
+                            <li>Visscher, P. M., &#38; Wray, N. R. (2016). Concepts and Misconceptions about the Polygenic Additive Model Applied to Disease. <i>Human Heredity</i>, <i>80</i>(4), 165–170. <a href="https://doi.org/10.1159/000446931">https://doi.org/10.1159/000446931</a></li>
                             <li>Massi M.C., Franco N.R., Ieva F., Manzoni A., Paganoni A.M., Zunino P. HighOrder Interaction Learning via Targeted Pattern Search. <i>MOX Report 59/2020</i>, 2020. Retrieved May 25, 2022, from <a href="https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf">https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf</a></li>
                             <li>Franco, N. R., Massi, M. C., et al. (2021). Development of a method for generating SNP interaction-aware polygenic risk scores for radiotherapy toxicity. <i>Radiotherapy and Oncology</i>, <i>159</i>, 241–248. <a href="https://doi.org/10.1016/j.radonc.2021.03.024">https://doi.org/10.1016/j.radonc.2021.03.024</a></li>
+                            <li>Ho, D. S. W., Schierding, W., Wake, M., Saffery, R., &#38; O’Sullivan, J. (2019). Machine learning SNP based prediction for precision medicine. <i>Frontiers in Genetics</i>, <i>10</i>(MAR), 267. <a href="https://doi.org/https://doi.org/10.3389/fgene.2019.00267">https://doi.org/https://doi.org/10.3389/fgene.2019.00267</a></li>
+                            <li>Gola, D., Erdmann, J., Müller-Myhsok, B., Schunkert, H., &#38; König, I. R. (2020). Polygenic risk scores outperform machine learning methods in predicting coronary artery disease status. <i>Genetic Epidemiology</i>, <i>44</i>(2), 125–138. <a href="https://doi.org/10.1002/GEPI.22279">https://doi.org/10.1002/GEPI.22279</a></li>
+
+
+                        </ol>
+                    </section>
+                    <section>
+                        <ol start="11">
+
                         </ol>
                     </section>
                 </section>
