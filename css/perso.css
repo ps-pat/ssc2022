@@ -27,6 +27,12 @@
     font-size: 0.75em;
 }
 
+/* Overboxes */
+.obox {
+    background-color: #fdfdfe;
+    padding: 24px;
+}
+
 /* Menu */
 .reveal .slide-menu-button {
     top: 30px;
@@ -143,7 +149,11 @@ ul li::marker {
 ul li:after, ol li:after {
     content: ";";
     color: #ebcb8b;
+
+    display: inline-block;
+    width: 0;
 }
+
 
 /* Code */
 pre {
