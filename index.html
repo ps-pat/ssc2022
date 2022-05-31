@@ -76,7 +76,7 @@ Example:<span class="reference">4</span> additive + dominant model:
 $$
 \hat s = \sum\_{k = 1}^m x_k \hat{\beta}_k +
 \textcolor{#4d7e65}{\underbrace{d_k}\_{\mathclap{1 \text{ iff heterozygous at } k}}}
-\textcolor{#9558b2}{\overbrace{\hat{\gamma}_k}^{\mathclap{\text{dominance weight of allele }k}}}
+\textcolor{#9558b2}{\overbrace{\hat{\gamma}_k}^{\mathclap{\text{dominance weight of allele } k}}}
 $$
                         </textarea>
                     </section>
@@ -126,6 +126,91 @@ $$
                     <section class="title-slide">
                         <h1>Model-Free Genotype Based Prediction</h1>
                     </section>
+                    <section>
+                        <div class="r-stack">
+                            <div class="fragment semi-fade-out" data-fragment-index="3">
+                                <h1>Overview</h1>
+                                Goal: compute the likelihood of phenotype $\varphi^*$ given the underlying genotype $h_0^*$.
+                                <div class="fragment fade-down" data-fragment-index="1">
+                                    Exploit information from paired genotype-phenotype sequence:
+                                    $$
+                                    H_0 \bigtriangleup \Phi =
+                                    \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace.
+                                    $$
+                                </div>
+                                <div class="fragment fade-up" data-fragment-index="2">
+                                    A bit of notation:
+                                    $$
+                                    H_0^* = H_0 \cup \lbrace h_0^* \rbrace, \quad
+                                    \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace
+                                    $$
+                                </div>
+                            </div>
+                            <div class="fragment r-frame obox fade-down" data-fragment-index="3">
+                                <h2>Assumption: Unrelatedness</h2>
+                                $$
+                                \begin{align*}
+                                h_0^i \perp h_0^j &\text{ where } h_0^i, h_0^j \in H_0^*\\
+                                \varphi_i \perp \varphi_j &\text{ where } \varphi_i, \varphi_j \in \Phi^*
+                                \end{align*}
+                                $$
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="r-stack">
+                            <div class="fragment semi-fade-out" data-fragment-index="2">
+                                <h1>Likelihood</h1>
+                                Assuming unrelatedness,
+                                $$
+                                L(\varphi^* | h_0^*, H_0, \Phi) \propto f(H_0^*, \Phi^*)
+                                $$
+                                <div class="fragment fade-up" data-fragment-index="1">
+                                    The law of total probabilities allows the introduction of <strong>evolutionary history</strong> in the form of <span style="color: #4d7e65">genealogies</span>:
+                                    $$
+                                    f(H_0^*, \Phi^*)
+                                    = \int_{\color{#4d7e65} \mathcal G} f(H_0^*, \Phi^* | {\color{#4d7e65} G}) f({\color{#4d7e65} G}) \text d{\color{#4d7e65} G}
+                                    $$
+                                </div>
+                            </div>
+                            <div class="fragment r-frame obox fade-down" data-fragment-index="2">
+                                <h2>Fact: Conditional Independance</h2>
+                                $$
+                                (H_0^* | {\color{#4d7e65} G}) \perp (\Phi^* | {\color{#4d7e65} G})
+                                $$
+                            </div>
+                        </div>
+                    </section>
+                    <section data-markdown>
+                        <textarea data-template>
+# Likelihood &mdash; Conditional Independance
+Given conditional independance,
+$$
+f(H_0^*, \Phi^*)
+= \int_{\mathcal G} f(H_0^* | G) f(\Phi^* | G) f(G) \text d G
+$$
+---
+# Consistency
+- A genealogy $G$ is said to be consistent with a set of sequences $H_0$ if the sample induced by $G$ is precisely $H_0$
+- A given genealogy is consistent with **exactly 1** sample.
+
+Thus,
+$$
+f(H_0^* | G) = \mathbb I(G \text{ consistent with } H_0^*),
+$$
+                            <!-- $$
+                                 f(H_0^*, \Phi | \varphi^*)
+                                 = \int_{\mathcal G} f(H_0^* | G) f(\Phi | \varphi^*, G) \text d G
+                                 $$ -->
+---
+# Likelihood &mdash; Sample Consistency
+Let $\mathcal G_{H_0^*} \subseteq \mathcal G$ be the set of genealogies consistent with $H_0^*$. The likelihood simplifies to
+$$
+L(\varphi^*| H_0^*, \Phi) \propto f(H_0^*, \Phi^*)
+= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\Phi^* | G) f(G) \text d G
+$$
+                        </textarea>
+                    </section>
                 </section>
                 <section id="references">
                     <section class="title-slide">
@@ -147,11 +232,6 @@ $$
                             <li>Massi M.C., Franco N.R., Ieva F., Manzoni A., Paganoni A.M., Zunino P. HighOrder Interaction Learning via Targeted Pattern Search. <i>MOX Report 59/2020</i>, 2020. Retrieved May 25, 2022, from <a href="https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf">https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf</a></li>
                             <li>Franco, N. R., Massi, M. C., et al. (2021). Development of a method for generating SNP interaction-aware polygenic risk scores for radiotherapy toxicity. <i>Radiotherapy and Oncology</i>, <i>159</i>, 241–248. <a href="https://doi.org/10.1016/j.radonc.2021.03.024">https://doi.org/10.1016/j.radonc.2021.03.024</a></li>
                             <li>Ho, D. S. W., Schierding, W., Wake, M., Saffery, R., &#38; O’Sullivan, J. (2019). Machine learning SNP based prediction for precision medicine. <i>Frontiers in Genetics</i>, <i>10</i>(MAR), 267. <a href="https://doi.org/https://doi.org/10.3389/fgene.2019.00267">https://doi.org/https://doi.org/10.3389/fgene.2019.00267</a></li>
-                        </ol>
-                    </section>
-                    <section>
-                        <ol start="11">
-
                         </ol>
                     </section>
                 </section>
