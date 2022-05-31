@@ -43,23 +43,27 @@ $$
 \textcolor{#4d7e65}{\underbrace{x_k}\_{\mathrlap{k-\text{allele count}}}}
 \textcolor{#9558b2}{\overbrace{\hat{\beta}_k}^{\mathclap{\text{weight of allele }k}}}
 $$
-<!-- .element: class="fragment fade-up" -->
                         </textarea>
                     </section>
                     <section>
                         <h1>Assumptions</h1>
                         <ul>
-                            <li>Weight estimation is based on linear regression models</li>
+                            <li>Weight estimation is based on <strong>linear models</strong></li>
                         </ul>
 
                         <div class="fragment fade-up">
-                            <p> Assumes (among other things):
-                                <ul>
-                                    <li>Additivity</li>
-                                    <li class="fragment highlight-red grow">Linearity</li>
-                                </ul>
-                            </p>
+                            <p>Assumes (among other things):</p>
+                            <ul>
+                                <li class="fragment highlight-current-red">Additivity</li>
+                                <li class="fragment highlight-current-red grow">Linearity</li>
+                            </ul>
                         </div>
+                        <aside class="notes">
+                            <ul>
+                                <li>Additivity can be relaxed relatively easily (next slide);</li>
+                                <li>It is much harder to let go of the linearity assumption.</li>
+                            </ul>
+                        </aside>
                     </section>
                     <section data-markdown>
                         <textarea data-template>
@@ -74,23 +78,55 @@ $$
 \textcolor{#4d7e65}{\underbrace{d_k}\_{\mathclap{1 \text{ iff heterozygous at } k}}}
 \textcolor{#9558b2}{\overbrace{\hat{\gamma}_k}^{\mathclap{\text{dominance weight of allele }k}}}
 $$
-                            <!-- .element: class="fragment fade-up" -->
----
-# Epistasis?
-- Gene-Gene interaction
-- Major difficulty in the analysis of GWAS data<span class="reference">6</span>
-- Epistasis-aware models are possible, but intractable ($\mathcal O(2^m)$ terms)
-                            <!--
-                               - Since features are selected based on association with the response, arguably begs the question -->
----
-# Epistasis-aware models
-- Some phenotyopes are simple.
-- Some forms of epistasis might be reflected in additive effects<span class="reference">7</span>
-- Interaction learning<span class="reference">8</span><sup>,</sup><span class="reference">9</span>
                         </textarea>
                     </section>
-                </section>
+                    <section>
+                        <h1>Epistasis?</h1>
+                        <ul>
+                            <li>Gene-Gene interaction</li>
+                            <li>Major difficulty in the analysis of GWAS data<span class="reference">6</span></li>
+                            <li>Epistasis-aware models are possible; however, naïve ones are intractable ($\mathcal O(2^m)$ terms)</li>
+                        </ul>
 
+                        <div class="fragment fade-left">
+                            <p>That being said,</p>
+                            <ul>
+                                <li>Some phenotypes are simple</li>
+                                <li>Some forms of epistasis might be reflected in additive effects<span class="reference">7</span></li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Epistasis-aware models</h1>
+                        <ul>
+                            <li>Interaction learning<span class="reference">8</span><sup>,</sup><span class="reference">9</span></li>
+                            <li>Machine learning
+                        </ul>
+
+                        <div class="fragment fade-down">
+                            <p>For machine learning:</p>
+                            <ul>
+                                <li>Marker selection is "the major factor that impacts on amachine learning model’s predictive performance"<span class="reference">10</span></li>
+                                <li>The mechanic through which markers affect phenotype might not be known</li>
+                            </ul>
+                        </div>
+
+                        <aside class="notes">
+                            Two kinds of interaction learning:
+                            <ol>
+                                <li>Finding interactions associated with a given variable (begs the question: what does "associated" mean?);</li>
+                                <li>Penalized regression: can still lead to explosion of # of variables.</li>
+                            </ol>
+
+                            Marker selection assumes a model of how genotype influence phenotype; this begs the question.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section class="title-slide">
+                        <h1>Model-Free Genotype Based Prediction</h1>
+                    </section>
+                </section>
                 <section id="references">
                     <section class="title-slide">
                         <h1>References</h1>
@@ -107,13 +143,10 @@ $$
                     <section>
                         <ol start="6">
                             <li>Furlong, L. I. (2013). Human diseases through the lens of network biology. <i>Trends in Genetics</i>, <i>29</i>(3), 150–159. <a href="https://doi.org/10.1016/J.TIG.2012.11.004">https://doi.org/10.1016/J.TIG.2012.11.004</a></li>
-                            <li>Visscher, P. M., &#38; Wray, N. R. (2016). Concepts and Misconceptions about the Polygenic Additive Model Applied to Disease. <i>Human Heredity</i>, <i>80</i>(4), 165–170. <a href="https://doi.org/10.1159/000446931">https://doi.org/10.1159/000446931</a></li>
+                            <li>Mäki-Tanila, A., &#38; Hill, W. G. (2014). Influence of Gene Interaction on Complex Trait Variation with Multilocus Models. <i>Genetics</i>, <i>198</i>(1), 355–367. <a href="https://doi.org/10.1534/GENETICS.114.165282">https://doi.org/10.1534/GENETICS.114.165282</a></li>
                             <li>Massi M.C., Franco N.R., Ieva F., Manzoni A., Paganoni A.M., Zunino P. HighOrder Interaction Learning via Targeted Pattern Search. <i>MOX Report 59/2020</i>, 2020. Retrieved May 25, 2022, from <a href="https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf">https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf</a></li>
                             <li>Franco, N. R., Massi, M. C., et al. (2021). Development of a method for generating SNP interaction-aware polygenic risk scores for radiotherapy toxicity. <i>Radiotherapy and Oncology</i>, <i>159</i>, 241–248. <a href="https://doi.org/10.1016/j.radonc.2021.03.024">https://doi.org/10.1016/j.radonc.2021.03.024</a></li>
                             <li>Ho, D. S. W., Schierding, W., Wake, M., Saffery, R., &#38; O’Sullivan, J. (2019). Machine learning SNP based prediction for precision medicine. <i>Frontiers in Genetics</i>, <i>10</i>(MAR), 267. <a href="https://doi.org/https://doi.org/10.3389/fgene.2019.00267">https://doi.org/https://doi.org/10.3389/fgene.2019.00267</a></li>
-                            <li>Gola, D., Erdmann, J., Müller-Myhsok, B., Schunkert, H., &#38; König, I. R. (2020). Polygenic risk scores outperform machine learning methods in predicting coronary artery disease status. <i>Genetic Epidemiology</i>, <i>44</i>(2), 125–138. <a href="https://doi.org/10.1002/GEPI.22279">https://doi.org/10.1002/GEPI.22279</a></li>
-
-
                         </ol>
                     </section>
                     <section>
@@ -148,7 +181,7 @@ $$
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="dist/perso.js"></script>
-        <script type="text/javascript">qrcode.makeCode("www.patrickfournier.ca");</script>
+        <script type="text/javascript">qrcode.makeCode("www.patrickfournier.ca/ssc2022");</script>
         <script>
          // More info about initialization & config:
          // - https://revealjs.com/initialization/
