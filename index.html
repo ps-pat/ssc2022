@@ -101,7 +101,7 @@ $$
                         <h1>Epistasis-aware models</h1>
                         <ul>
                             <li>Interaction learning<span class="reference">8</span><sup>,</sup><span class="reference">9</span></li>
-                            <li>Machine learning
+                            <li>Machine learning</li>
                         </ul>
 
                         <div class="fragment fade-down">
@@ -170,7 +170,7 @@ $$
                                     The law of total probabilities allows the introduction of <strong>evolutionary history</strong> in the form of <span style="color: #4d7e65">genealogies</span>:
                                     $$
                                     f(H_0^*, \Phi^*)
-                                    = \int_{\color{#4d7e65} \mathcal G} f(H_0^*, \Phi^* | {\color{#4d7e65} G}) f({\color{#4d7e65} G}) \text d{\color{#4d7e65} G}
+                                    = \int_{\color{#4d7e65} \mathcal G} f(H_0^*, \Phi^* | {\color{#4d7e65} G}) g({\color{#4d7e65} G}) \text d{\color{#4d7e65} G}
                                     $$
                                 </div>
                             </div>
@@ -188,28 +188,72 @@ $$
 Assuming conditional independance,
 $$
 f(H_0^*, \Phi^*)
-= \int_{\mathcal G} f(H_0^* | G) f(\Phi^* | G) f(G) \text d G
+= \int_{\mathcal G} f(H_0^* | G) f(\Phi^* | G) g(G) \text d G
 $$
 ---
 # Consistency
 - A genealogy $G$ is said to be consistent with a set of sequences $H_0$ if the sample induced by $G$ is precisely $H_0$
-- A given genealogy is consistent with **exactly 1** sample.
+- A given genealogy is consistent with **exactly 1** sample
 
 Thus,
 $$
 f(H_0^* | G) = \mathbb I(G \text{ consistent with } H_0^*),
 $$
-                            <!-- $$
-                                 f(H_0^*, \Phi | \varphi^*)
-                                 = \int_{\mathcal G} f(H_0^* | G) f(\Phi | \varphi^*, G) \text d G
-                                 $$ -->
 ---
 # Likelihood &mdash; Sample Consistency
 Let $\mathcal G_{H_0^*} \subseteq \mathcal G$ be the set of genealogies consistent with $H_0^*$. The likelihood simplifies to
 $$
 L(\varphi^*| H_0^*, \Phi) \propto f(H_0^*, \Phi^*)
-= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\Phi^* | G) f(G) \text d G
+= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\Phi^* | G) g(G) \text d G
 $$
+
+Notes:
+Conclusion:
+- We avoid having to make assumptions about the mode of action of genotype on phenotype.
+- On the other hand, we have to specify
+  1. a distribution for genealogies;
+  2. a conditional distribution for phenotypes.
+                        </textarea>
+                    </section>
+                </section>
+                <section>
+                    <section class="title-slide">
+                        <h1>Computing the Likelihood</h1>
+                    </section>
+                    <section>
+                        <h1>Context</h1>
+                        <ul>
+                            <li>Discrete phenotype: $\Phi^* \in \lbrace 0, 1 \rbrace^{n + 1}$</li>
+                            <li>Quantity of interest: $L(\varphi^* = 1 | H_0^*, \Phi)$</li>
+                            <li>$G \sim$ ARG<span class="reference">11</span></li>
+                            <li>$(\Phi^* | G) \sim$ ???</li>
+                        </ul>
+                        <span class="fragment fade-up"><p>First question: How to compute <strong>exact</strong> likelihood (not up to a constant)?</p></span>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Flexible framework: main restriction is conditional independance between sequences and phenotypes.</li>
+                                <li>Exact likelihood needed for PRS-like score.</li>
+                            </ul>
+                        </aside>
+                    </section>
+                    <section data-markdown>
+                        <textarea data-template>
+# Exact Likelihood
+Efficient computation of the normalisation constant (Tonelli):
+$$
+\begin{align*}
+f(H_0^*, \Phi)
+&= {\color{#e65100} \int_{\mathrlap{\Omega_{\varphi^*}}}} f(\varphi^*, H_0^*, \Phi) \\;{\color{#e65100}\text d \varphi^*}\\\\
+&= {\color{#e65100} \int_{\Omega_{\varphi^*}}} {\color{#9558b2} \int_{\mathrlap{\mathcal G_{H_0^*}}}} f(\varphi^*, \Phi | G) g(G) \\;{\color{#9558b2} \text d G} \\;{\color{#e65100} \text d \varphi^*}\\\\
+&= {\color{#9558b2} \int_{\mathcal G_{H_0^*}}} {\color{#e65100} \int_{\mathrlap{\Omega_{\varphi^*}}}} f(\varphi^*, \Phi | G) g(G) \\;{\color{#e65100} \text d \varphi^*} \\;{\color{#9558b2} \text d G}
+\end{align*}
+$$
+
+Notes:
+The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often easier to compute than <span style="color: #9558b2;">the one w.r.t. G</span>. Example:
+- Binary trait => sum of 2 terms;
+- ARG => numerical integration.
                         </textarea>
                     </section>
                 </section>
@@ -233,6 +277,11 @@ $$
                             <li>Massi M.C., Franco N.R., Ieva F., Manzoni A., Paganoni A.M., Zunino P. HighOrder Interaction Learning via Targeted Pattern Search. <i>MOX Report 59/2020</i>, 2020. Retrieved May 25, 2022, from <a href="https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf">https://www.mate.polimi.it/biblioteca/add/qmox/59-2020.pdf</a></li>
                             <li>Franco, N. R., Massi, M. C., et al. (2021). Development of a method for generating SNP interaction-aware polygenic risk scores for radiotherapy toxicity. <i>Radiotherapy and Oncology</i>, <i>159</i>, 241–248. <a href="https://doi.org/10.1016/j.radonc.2021.03.024">https://doi.org/10.1016/j.radonc.2021.03.024</a></li>
                             <li>Ho, D. S. W., Schierding, W., Wake, M., Saffery, R., &#38; O’Sullivan, J. (2019). Machine learning SNP based prediction for precision medicine. <i>Frontiers in Genetics</i>, <i>10</i>(MAR), 267. <a href="https://doi.org/https://doi.org/10.3389/fgene.2019.00267">https://doi.org/https://doi.org/10.3389/fgene.2019.00267</a></li>
+                        </ol>
+                    </section>
+                    <section>
+                        <ol start="11">
+                            <li>Griffiths, R. C., and Marjoram, P. (1996). An ancestral recombination graph. <i>IMA Volume on Mathematical Population Genetics</i> (P. Donnelly and S. Tavare, Eds.), Springer-Verlag, New York, 257–270</li>
                         </ol>
                     </section>
                 </section>
