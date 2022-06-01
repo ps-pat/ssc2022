@@ -27,7 +27,7 @@
                     </section>
                     <section data-markdown>
                         <textarea data-template>
-# Definition
+# PRS: Definition
 - "Weighted sum of the effects of a number of SNPs on a given quantitative
   trait"<span class="reference">1</span>
 - Weights "based on the effect sizes of the SNPs estimated from a
@@ -61,7 +61,8 @@ $$
                         <aside class="notes">
                             <ul>
                                 <li>Additivity can be relaxed relatively easily (next slide);</li>
-                                <li>It is much harder to let go of the linearity assumption.</li>
+                                <li>It is much harder to let go of the linearity assumption;</li>
+                                <li>Example of linear but non-additive model in next slide.</li>
                             </ul>
                         </aside>
                     </section>
@@ -106,7 +107,7 @@ $$
                         <div class="fragment fade-down">
                             <p>For machine learning:</p>
                             <ul>
-                                <li>Marker selection is "the major factor that impacts on amachine learning model’s predictive performance"<span class="reference">10</span></li>
+                                <li>Marker selection is "the major factor that impacts on a machine learning model’s predictive performance"<span class="reference">10</span></li>
                                 <li>The mechanic through which markers affect phenotype might not be known</li>
                             </ul>
                         </div>
@@ -132,7 +133,7 @@ $$
                                 <h1>Overview</h1>
                                 Goal: compute the likelihood of phenotype $\varphi^*$ given the underlying genotype $h_0^*$.
                                 <div class="fragment fade-down" data-fragment-index="1">
-                                    Exploit information from paired genotype-phenotype sequence:
+                                    Exploit information from paired haplotype-phenotype sequence:
                                     $$
                                     H_0 \bigtriangleup \Phi =
                                     \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace.
