@@ -128,34 +128,21 @@ $$
                         <h1>Model-Free Genotype Based Prediction</h1>
                     </section>
                     <section>
-                        <div class="r-stack">
-                            <div class="fragment semi-fade-out" data-fragment-index="3">
-                                <h1>Overview</h1>
-                                Goal: compute the likelihood of phenotype $\varphi^*$ given the underlying genotype $h_0^*$.
-                                <div class="fragment fade-down" data-fragment-index="1">
-                                    Exploit information from paired haplotype-phenotype sequence:
-                                    $$
-                                    H_0 \bigtriangleup \Phi =
-                                    \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace.
-                                    $$
-                                </div>
-                                <div class="fragment fade-up" data-fragment-index="2">
-                                    A bit of notation:
-                                    $$
-                                    H_0^* = H_0 \cup \lbrace h_0^* \rbrace, \quad
-                                    \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace
-                                    $$
-                                </div>
-                            </div>
-                            <div class="fragment r-frame obox fade-down" data-fragment-index="3">
-                                <h2>Assumption: Unrelatedness</h2>
-                                $$
-                                \begin{align*}
-                                h_0^i \perp h_0^j &\text{ where } h_0^i, h_0^j \in H_0^*\\
-                                \varphi_i \perp \varphi_j &\text{ where } \varphi_i, \varphi_j \in \Phi^*
-                                \end{align*}
-                                $$
-                            </div>
+                        <h1>Overview</h1>
+                        Goal: compute the likelihood of phenotype $\varphi^*$ given the underlying genotype $h_0^*$.
+                        <div class="fragment fade-down" data-fragment-index="1">
+                            Exploit information from paired haplotype-phenotype sequence:
+                            $$
+                            H_0 \bigtriangleup \Phi =
+                            \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace.
+                            $$
+                        </div>
+                        <div class="fragment fade-up" data-fragment-index="2">
+                            A bit of notation:
+                            $$
+                            H_0^* = H_0 \cup \lbrace h_0^* \rbrace, \quad
+                            \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace
+                            $$
                         </div>
                     </section>
                     <section>
@@ -203,16 +190,20 @@ $$
 # Likelihood &mdash; Sample Consistency
 Let $\mathcal G_{H_0^*} \subseteq \mathcal G$ be the set of genealogies consistent with $H_0^*$. The likelihood simplifies to
 $$
+\begin{align*}
 L(\varphi^*| H_0^*, \Phi) \propto f(H_0^*, \Phi^*)
-= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\Phi^* | G) g(G) \text d G
+&= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\Phi^* | G) g(G) \text d G\\\\
+&= \int_{\mathrlap{\mathcal G_{H_0^*}}} f(\varphi^*, \Phi | G) g(G) \text d G
+\end{align*}
 $$
 
 Notes:
-Conclusion:
-- We avoid having to make assumptions about the mode of action of genotype on phenotype.
-- On the other hand, we have to specify
-  1. a distribution for genealogies;
-  2. a conditional distribution for phenotypes.
+- Last expression usefull for computation.
+- Conclusion:
+  - We avoid having to make assumptions about the mode of action of genotype on phenotype.
+  - On the other hand, we have to specify
+    1. a distribution for genealogies;
+    2. a conditional distribution for phenotypes.
                         </textarea>
                     </section>
                 </section>
@@ -225,14 +216,18 @@ Conclusion:
                         <ul>
                             <li>Discrete phenotype: $\Phi^* \in \lbrace 0, 1 \rbrace^{n + 1}$</li>
                             <li>Quantity of interest: $L(\varphi^* = 1 | H_0^*, \Phi)$</li>
+                            <li>No recombination between causal markers</li>
                             <li>$G \sim$ ARG<span class="reference">11</span></li>
                             <li>$(\Phi^* | G) \sim$ ???</li>
                         </ul>
-                        <span class="fragment fade-up"><p>First question: How to compute <strong>exact</strong> likelihood (not up to a constant)?</p></span>
+                        <div class="fragment fade-right">
+                            <p>First question: How to compute <strong>exact</strong> likelihood (not up to a constant)?</p>
+                        </div>
 
                         <aside class="notes">
                             <ul>
                                 <li>Flexible framework: main restriction is conditional independance between sequences and phenotypes.</li>
+                                <li>No recombination hypothesis is not essential, just there to save some maths</li>
                                 <li>Exact likelihood needed for PRS-like score.</li>
                             </ul>
                         </aside>
@@ -251,10 +246,65 @@ f(H_0^*, \Phi)
 $$
 
 Notes:
-The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often easier to compute than <span style="color: #9558b2;">the one w.r.t. G</span>. Example:
-- Binary trait => sum of 2 terms;
-- ARG => numerical integration.
+- The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often easier to compute than <span style="color: #9558b2;">the one w.r.t. G</span>. Example:
+  - Binary trait => sum of 2 terms;
+  - ARG => numerical integration.
+- Joint density must be well-defined.
+- Always work for discrete phenotype (dominated convergence).
+---
+# Sample genealogy
+![Example genealogy](assets/example.svg)
                         </textarea>
+                    </section>
+                    <section>
+                        <h1>Conditional Density of the Phenotypes</h1>
+                        <p>For each marginal tree $T_i$, we compute the <strong>marginal density</strong> $f(\varphi^* = 1, \Phi | T_i)$.
+                        <p>Select tree $T^*$ based on absolute pointwise mutual information:</p>
+                        $$
+                        T^* = \argmax_T \left\vert \text{pmi}(\Phi^*, T) \right\vert = \left\vert \frac{f(\Phi^* | G)}{f(\Phi^*)} \right\vert
+                        $$
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Select the tree which the graph is most informative.</li>
+                                <li>Tree selection is done retrospectively.</li>
+                            </ul>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Conditional Density II</h1>
+                        <ul>
+                            <li>$f(\Phi | T_i) \rightarrow f(\Phi)$ as ${\text{TMRCA}(T_i) \rightarrow \infty}$</li>
+                            <li>$\varphi_k \sim \mathcal B(p)$, $\Phi \sim \mathcal B(n, p)$</li>
+                        </ul>
+                        <div class="fragment fade-up">
+                            <p>Assume conditional independance on ancestor:</p>
+                            $$
+                            f(\varphi_k | T_i, \Phi \setminus \lbrace \varphi_k \rbrace) = f(\varphi_k | p_{T_i}(k), \Phi\vert_{p_{T_i}(k)})
+                            $$
+                            Where $p_{T_i}(k)$: parent of sequence $k$, ${\Phi\vert_x =\lbrace \varphi \in \Phi : \varphi \text{ descedent of x} \rbrace}$.
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Conditional Density III</h1>
+                        $$
+                        \begin{align*}
+                        &f(\Phi^* | T^* )\\
+                        &\quad = f(\varphi^* | \Phi, T^*) \prod_{k = 1}^n f(\varphi_k| \Phi_{k - 1}, T^*)\\
+                        &\quad = f(\varphi^* | p_{T_i}(*), \Phi\vert_{p_{T_i}(*)}) \prod_{k = 1}^n f(\varphi_k | p_{T_i}(k), \Phi\vert_{p_{T_i}(k)})
+                        \end{align*}
+                        $$
+                    </section>
+                    <section>
+                        <h1>Conditional Density: Single Phenotype</h1>
+                        <ul>
+                            <li>$\alpha(t): \mathbb R_+ \to [0, 1]$ strictly monotonous such that $\alpha(0) = 0$ and $\alpha(t) \to 1$ as $t \to \infty$</li>
+                            <li>$t_k = \text{TMRCA}(\Phi\vert_{p_{T_i}(k)})$</li>
+                            <li>$h$: U-shaped beta-binomial mass function</li>
+                        </ul>
+                        $$
+                        f(\varphi_k | t_k, \Phi\vert_{p_{T_i}(k)}) = \alpha(t_k) f(\Phi) + (1 - \alpha(t_k)) h(\Phi).
+                        $$
                     </section>
                 </section>
                 <section id="references">
@@ -452,7 +502,7 @@ The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often 
 
              spotlight: {
                  // size of the spotlight
-                 size: 60,
+                 size: 15,
 
                  // true: Locks the mouse pointer inside the presentation
                  // there is by design (Pointer Lock API) no spotlightCursor and presentingCursor
@@ -467,7 +517,7 @@ The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often 
                  spotlightOnKeyPressAndHold: false,
 
                  // choose the cursor when spotlight is on. Maybe "crosshair"?
-                 spotlightCursor: 'crosshair',
+                 spotlightCursor: 'none',
 
                  // choose the cursor when spotlight is off and in presentation mode. Maybe "default"?
                  presentingCursor: 'none',
@@ -482,7 +532,7 @@ The <span style="color: #e65100;">integral w.r.t φ<sup>*</sup></span> is often 
                  fadeInAndOut: 100,
 
                  // enable pointer mode
-                 useAsPointer: false,
+                 useAsPointer: true,
 
                  // pointer color (If pointer mode enabled)
                  pointerColor: 'red'
